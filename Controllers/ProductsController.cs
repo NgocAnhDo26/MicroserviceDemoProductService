@@ -1,29 +1,29 @@
+using MicroserviceDemoProductService.Model;
 using Microsoft.AspNetCore.Mvc;
-using ProductService.Models;
 
-namespace ProductService.Controllers;
+namespace MicroserviceDemoProductService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
-    private static readonly List<Product> _products = new List<Product>
-    {
+    private static readonly List<Product> Products =
+    [
         new Product { Id = 101, Name = "Laptop Pro", Price = 1200.00m },
         new Product { Id = 102, Name = "Wireless Mouse", Price = 25.50m },
         new Product { Id = 103, Name = "Keyboard", Price = 75.00m }
-    };
+    ];
 
     [HttpGet]
     public ActionResult<IEnumerable<Product>> GetProducts()
     {
-        return Ok(_products);
+        return Ok(Products);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public ActionResult<Product> GetProduct(int id)
     {
-        var product = _products.FirstOrDefault(p => p.Id == id);
+        var product = Products.FirstOrDefault(p => p.Id == id);
         if (product == null)
         {
             return NotFound();

@@ -1,4 +1,4 @@
-namespace ProductService.Models;
+namespace MicroserviceDemoProductService.Model;
 
 public class Product
 {
