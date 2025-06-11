@@ -1,33 +1,28 @@
+using MicroserviceDemoProductService.Data;
 using MicroserviceDemoProductService.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MicroserviceDemoProductService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductsController : ControllerBase
+public class ProductsController(ProductDbContext context) : ControllerBase
 {
-    private static readonly List<Product> Products =
-    [
-        new Product { Id = 101, Name = "Laptop Pro", Price = 1200.00m },
-        new Product { Id = 102, Name = "Wireless Mouse", Price = 25.50m },
-        new Product { Id = 103, Name = "Keyboard", Price = 75.00m }
-    ];
-
     [HttpGet]
-    public ActionResult<IEnumerable<Product>> GetProducts()
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
-        return Ok(Products);
+        return await context.Products.ToListAsync();
     }
 
     [HttpGet("{id:int}")]
-    public ActionResult<Product> GetProduct(int id)
+    public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var product = Products.FirstOrDefault(p => p.Id == id);
+        var product = await context.Products.FindAsync(id);
         if (product == null)
         {
             return NotFound();
         }
-        return Ok(product);
+        return product;
     }
 }
