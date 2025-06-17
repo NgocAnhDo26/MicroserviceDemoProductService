@@ -9,23 +9,27 @@ router.post("/", async (req, res) => {
         const { id, name, price } = req.body;
         // Basic validation
         if (id == null || name == null || price == null) {
-            return res.status(400).json({ error: "Missing required fields: id, name, price" });
+            // FIX: Removed 'return'
+            res.status(400).json({ error: "Missing required fields: id, name, price" });
+            return; // Use a plain 'return' to exit the function
         }
         const newProduct = new Product({ id, name, price });
         await newProduct.save();
         res.status(201).json(newProduct);
     } catch (error) {
         // Handle potential duplicate key errors
-        if (error.code === 11000) {
-            return res.status(409).json({
+        if ((error as any).code === 11000) {
+            // FIX: Removed 'return'
+            res.status(409).json({
                 error: "Product with this ID already exists",
                 details: error,
             });
+        } else { // Added 'else' for clarity
+            res.status(500).json({
+                error: "Error creating product",
+                details: error,
+            });
         }
-        res.status(500).json({
-            error: "Error creating product",
-            details: error,
-        });
     }
 });
 
@@ -42,19 +46,23 @@ router.get("/", async (_req, res) => {
     }
 });
 
-// NEW: Get a single product by its numeric ID
+// Get a single product by its numeric ID
 router.get("/:id", async (req, res) => {
     try {
         const productId = parseInt(req.params.id, 10);
         if (isNaN(productId)) {
-            return res.status(400).json({ error: "Invalid product ID format. Must be a number." });
+            // FIX: Removed 'return'
+            res.status(400).json({ error: "Invalid product ID format. Must be a number." });
+            return; // Use a plain 'return' to exit the function
         }
-        
+
         // Use the 'id' field you defined in your schema, not the default '_id'
         const product = await Product.findOne({ id: productId });
 
         if (!product) {
-            return res.status(404).json({ error: "Product not found" });
+            // FIX: Removed 'return'
+            res.status(404).json({ error: "Product not found" });
+            return; // Use a plain 'return' to exit the function
         }
         res.json(product);
     } catch (error) {
@@ -64,6 +72,5 @@ router.get("/:id", async (req, res) => {
         });
     }
 });
-
 
 export default router;
