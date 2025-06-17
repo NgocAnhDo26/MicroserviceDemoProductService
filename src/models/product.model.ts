@@ -10,6 +10,8 @@ const ProductSchema: Schema = new Schema<IProduct>({
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
+}, {
+    collection: 'products'
 });
 
 export default mongoose.model<IProduct>("Product", ProductSchema);
