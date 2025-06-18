@@ -1,0 +1,52 @@
+[
+  {
+    "id": 101,
+    "name": "Laptop Pro 15-inch",
+    "price": 1299.99
+  },
+  {
+    "id": 102,
+    "name": "Wireless Noise-Cancelling Headphones",
+    "price": 349.95
+  },
+  {
+    "id": 103,
+    "name": "4K Ultra HD 55-inch Smart TV",
+    "price": 479.00
+  },
+  {
+    "id": 104,
+    "name": "Mechanical Gaming Keyboard",
+    "price": 119.50
+  },
+  {
+    "id": 105,
+    "name": "Smart Home Hub Assistant",
+    "price": 99.00
+  },
+  {
+    "id": 106,
+    "name": "High-Performance Blender",
+    "price": 89.99
+  },
+  {
+    "id": 107,
+    "name": "27-inch IPS Monitor",
+    "price": 249.99
+  },
+  {
+    "id": 108,
+    "name": "Ergonomic Office Chair",
+    "price": 199.99
+  },
+  {
+    "id": 109,
+    "name": "Portable Bluetooth Speaker",
+    "price": 45.00
+  },
+  {
+    "id": 110,
+    "name": "1TB NVMe SSD",
+    "price": 74.99
+  }
+]
